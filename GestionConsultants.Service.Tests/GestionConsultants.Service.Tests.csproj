@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GestionConsultants.Core\GestionConsultants.Core.csproj" />
+    <ProjectReference Include="..\GestionConsultants.Data\GestionConsultants.Data.csproj" />
+    <ProjectReference Include="..\GestionConsultants.Service\GestionConsultants.Service.csproj" />
+  </ItemGroup>
+
+</Project>
