@@ -8,7 +8,6 @@ namespace GestionConsultants.Core.Domain
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-        public double Rate { get; set; }
         public Experience Experience { get; set; }
         public ICollection<MissionConsultant> Missions { get; set; } = new List<MissionConsultant>();
     }

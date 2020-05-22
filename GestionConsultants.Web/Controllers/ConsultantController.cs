@@ -16,7 +16,8 @@ namespace GestionConsultants.Web.Controllers
         [Route("{consultantId}")]
         public IActionResult Get(int consultantId)
         {
-            return Ok();
+            var consultant = _consultantService.GetHistoriqueByConsultant(consultantId);
+            return Ok(consultant);
         }
     }
 }

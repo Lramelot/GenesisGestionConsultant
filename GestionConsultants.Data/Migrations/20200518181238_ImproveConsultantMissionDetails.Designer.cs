@@ -3,14 +3,16 @@ using GestionConsultants.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestionConsultants.Data.Migrations
 {
     [DbContext(typeof(ConsultantContext))]
-    partial class ConsultantContextModelSnapshot : ModelSnapshot
+    [Migration("20200518181238_ImproveConsultantMissionDetails")]
+    partial class ImproveConsultantMissionDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,9 @@ namespace GestionConsultants.Data.Migrations
                     b.Property<string>("Prenom")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("Consultants");
@@ -44,21 +49,24 @@ namespace GestionConsultants.Data.Migrations
                             Id = 1,
                             Experience = 1,
                             Nom = "Ramelot",
-                            Prenom = "Loïc"
+                            Prenom = "Loïc",
+                            Rate = 500.0
                         },
                         new
                         {
                             Id = 2,
                             Experience = 2,
                             Nom = "Nguyen",
-                            Prenom = "Duy"
+                            Prenom = "Duy",
+                            Rate = 600.0
                         },
                         new
                         {
                             Id = 3,
                             Experience = 0,
                             Nom = "Gaa",
-                            Prenom = "Corentin"
+                            Prenom = "Corentin",
+                            Rate = 450.0
                         });
                 });
 
@@ -115,6 +123,9 @@ namespace GestionConsultants.Data.Migrations
                     b.Property<bool>("EstActif")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
                     b.Property<int>("MissionId")
                         .HasColumnType("int");
 
@@ -139,6 +150,7 @@ namespace GestionConsultants.Data.Migrations
                             CommissionEntreprise = 10.0,
                             ConsultantId = 1,
                             EstActif = false,
+                            Experience = 1,
                             MissionId = 1,
                             PosteInterne = "Lead Developer",
                             Rate = 500.0
@@ -149,6 +161,7 @@ namespace GestionConsultants.Data.Migrations
                             CommissionEntreprise = 5.0,
                             ConsultantId = 2,
                             EstActif = true,
+                            Experience = 0,
                             MissionId = 1,
                             PosteInterne = "Architecte",
                             Rate = 600.0
@@ -159,6 +172,7 @@ namespace GestionConsultants.Data.Migrations
                             CommissionEntreprise = 15.0,
                             ConsultantId = 3,
                             EstActif = false,
+                            Experience = 2,
                             MissionId = 1,
                             PosteInterne = "Développzye",
                             Rate = 450.0
@@ -169,6 +183,7 @@ namespace GestionConsultants.Data.Migrations
                             CommissionEntreprise = 15.0,
                             ConsultantId = 1,
                             EstActif = true,
+                            Experience = 2,
                             MissionId = 2,
                             PosteInterne = "Lead Developer",
                             Rate = 475.0
@@ -179,6 +194,7 @@ namespace GestionConsultants.Data.Migrations
                             CommissionEntreprise = 15.0,
                             ConsultantId = 3,
                             EstActif = true,
+                            Experience = 2,
                             MissionId = 2,
                             PosteInterne = "Développeur",
                             Rate = 450.0

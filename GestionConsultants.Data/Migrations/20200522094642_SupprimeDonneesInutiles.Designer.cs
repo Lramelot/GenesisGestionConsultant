@@ -3,14 +3,16 @@ using GestionConsultants.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GestionConsultants.Data.Migrations
 {
     [DbContext(typeof(ConsultantContext))]
-    partial class ConsultantContextModelSnapshot : ModelSnapshot
+    [Migration("20200522094642_SupprimeDonneesInutiles")]
+    partial class SupprimeDonneesInutiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

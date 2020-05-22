@@ -10,9 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Consultant\Mapper\" />
-    <Folder Include="Consultant\Response\" />
     <Folder Include="Consultant\Request\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

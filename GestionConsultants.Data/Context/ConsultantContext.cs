@@ -8,9 +8,11 @@ namespace GestionConsultants.Data.Context
     public class ConsultantContext : DbContext
     {
         public DbSet<Consultant> Consultants { get; set; }
+        public DbSet<Mission> Missions { get; set; }
+        public DbSet<MissionConsultant> MissionConsultants { get; set; }
 
         public ConsultantContext(DbContextOptions<ConsultantContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Consultant>().ToTable("Consultants");
@@ -20,34 +22,72 @@ namespace GestionConsultants.Data.Context
             modelBuilder.Entity<MissionConsultant>().HasOne(mc => mc.Mission).WithMany(m => m.MissionsConsultants);
             modelBuilder.Entity<MissionConsultant>().HasOne(mc => mc.Consultant).WithMany(m => m.Missions);
 
-            modelBuilder.Entity<Consultant>().HasData(new List<Consultant>
+            PopulateConsultants(modelBuilder);
+            PopulateMissions(modelBuilder);
+            PopulateMissionsConsultants(modelBuilder);
+        }
+        
+        #region Méthodes de seeding
+
+        private static void PopulateMissionsConsultants(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MissionConsultant>().HasData(new List<MissionConsultant>
             {
-                new Consultant
+                new MissionConsultant
                 {
                     Id = 1,
-                    Nom = "Ramelot",
-                    Prenom = "Loïc",
-                    Experience = Experience.Medior,
-                    Rate = 500
+                    MissionId = 1,
+                    ConsultantId = 1,
+                    PosteInterne = "Lead Developer",
+                    Rate = 500,
+                    CommissionEntreprise = 10,
+                    EstActif = false
                 },
-                new Consultant
+                new MissionConsultant
                 {
                     Id = 2,
-                    Nom = "Nguyen",
-                    Prenom = "Duy",
-                    Experience = Experience.Senior,
-                    Rate = 600
+                    MissionId = 1,
+                    ConsultantId = 2,
+                    PosteInterne = "Architecte",
+                    Rate = 600,
+                    CommissionEntreprise = 5,
+                    EstActif = true
                 },
-                new Consultant
+                new MissionConsultant
                 {
                     Id = 3,
-                    Nom = "Gaa",
-                    Prenom = "Corentin",
-                    Experience = Experience.Junior,
-                    Rate = 450
+                    MissionId = 1,
+                    ConsultantId = 3,
+                    PosteInterne = "Développzye",
+                    Rate = 450,
+                    CommissionEntreprise = 15,
+                    EstActif = false
+                },
+                new MissionConsultant
+                {
+                    Id = 4,
+                    MissionId = 2,
+                    ConsultantId = 1,
+                    PosteInterne = "Lead Developer",
+                    Rate = 475,
+                    CommissionEntreprise = 15,
+                    EstActif = true
+                },
+                new MissionConsultant
+                {
+                    Id = 5,
+                    MissionId = 2,
+                    ConsultantId = 3,
+                    PosteInterne = "Développeur",
+                    Rate = 450,
+                    CommissionEntreprise = 15,
+                    EstActif = true
                 }
             });
+        }
 
+        private static void PopulateMissions(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<Mission>().HasData(new List<Mission>
             {
                 new Mission
@@ -65,55 +105,36 @@ namespace GestionConsultants.Data.Context
                     ExperienceMinimumRequise = Experience.Junior
                 }
             });
+        }
 
-            modelBuilder.Entity<MissionConsultant>().HasData(new List<MissionConsultant>
+        private static void PopulateConsultants(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Consultant>().HasData(new List<Consultant>
             {
-                new MissionConsultant
+                new Consultant
                 {
                     Id = 1,
-                    MissionId = 1,
-                    ConsultantId = 1,
-                    PosteInterne = "Lead Developer",
-                    Rate = 500,
-                    CommissionEntreprise = 10
+                    Nom = "Ramelot",
+                    Prenom = "Loïc",
+                    Experience = Experience.Medior,
                 },
-                new MissionConsultant
+                new Consultant
                 {
                     Id = 2,
-                    MissionId = 1,
-                    ConsultantId = 2,
-                    PosteInterne = "Architecte",
-                    Rate = 600,
-                    CommissionEntreprise = 5
+                    Nom = "Nguyen",
+                    Prenom = "Duy",
+                    Experience = Experience.Senior,
                 },
-                new MissionConsultant
+                new Consultant
                 {
                     Id = 3,
-                    MissionId = 1,
-                    ConsultantId = 3,
-                    PosteInterne = "Développzye",
-                    Rate = 450,
-                    CommissionEntreprise = 15
-                },
-                new MissionConsultant
-                {
-                    Id = 4,
-                    MissionId = 2,
-                    ConsultantId = 1,
-                    PosteInterne = "Lead Developer",
-                    Rate = 475,
-                    CommissionEntreprise = 15
-                },
-                new MissionConsultant
-                {
-                    Id = 5,
-                    MissionId = 2,
-                    ConsultantId = 3,
-                    PosteInterne = "Développeur",
-                    Rate = 450,
-                    CommissionEntreprise = 15
+                    Nom = "Gaa",
+                    Prenom = "Corentin",
+                    Experience = Experience.Junior,
                 }
             });
         }
+
+        #endregion
     }
 }

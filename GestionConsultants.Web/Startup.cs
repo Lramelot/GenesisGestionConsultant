@@ -1,5 +1,9 @@
+using System.Text.Json.Serialization;
+using AutoMapper;
 using GestionConsultants.Data.Context;
 using GestionConsultants.Service.Consultant;
+using GestionConsultants.Service.Consultant.Mapper;
+using GestionConsultants.Service.Mission;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +26,17 @@ namespace GestionConsultants.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ConsultantContext>(options => options.UseSqlServer("Server=.;Database=Consultant;Trusted_Connection=True;"));
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+
+            services.AddAutoMapper(typeof(ConsultantMapperProfile));
 
             services.AddScoped<IConsultantService, ConsultantService>();
+            services.AddScoped<IMissionService, MissionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,9 +48,7 @@ namespace GestionConsultants.Web
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
